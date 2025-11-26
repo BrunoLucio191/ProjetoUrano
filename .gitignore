@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Prerequisites
 *.d
 
@@ -39,3 +40,22 @@
 
 # debug information files
 *.dwo
+=======
+# Build do Arduino
+/build/
+/*.ino.*
+/*.cpp.*
+/*.h.*
+*.elf
+*.hex
+*.bin
+*.eep
+*.map
+
+# Configurações de IDE
+.vscode/
+.idea/
+
+# Arquivos de log
+*.log
+>>>>>>> 500544a (Adicionar sketch Arduino)
