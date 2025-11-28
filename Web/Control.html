@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel de Controle Centralizado IR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="hero-banner">
+        <span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
+
+        <img src="/img/ufma-logo.png" alt="ufma-logo" class="banner-logo">
+        
+        <h1>Controle Central AC</h1>
+        <p>Painel de Controle Unificado v1.0</p>
+    </div>
+
+    <span class="menu-icon" onclick="toggleMenu()">&#9776;</span>
+
+    <div id="Sidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="toggleMenu()">&times;</a>
+        <a href="#" onclick="showView('home')">Início</a>
+        <a href="#" onclick="showView('training')">Treinamento</a>
+        <a href="#" onclick="showView('about')">Sobre</a>
+    </div>
+
+    <div id="overlay" onclick="toggleMenu()"></div>
+    
+    <div id="view-home" class="view-section">
+        <div class="ac-unit" id="ac-sala">
+            <h2>AC Sala</h2>
+            <label for="ip-sala">Endereço IP:</label>
+            <input type="text" class="ip-input" id="ip-sala" value="192.168.1.101">
+            
+            <div class="button-group">
+                <button class="btn btn-on" onclick="sendIrCommand('sala', 'L')">LIGAR</button>
+                <button class="btn btn-off" onclick="sendIrCommand('sala', 'D')">DESLIGAR</button>
+            </div>
+            
+            <hr>
+            
+            <label for="temp-sala">Temperatura (T):</label>
+            <select id="temp-sala">
+                </select>
+
+            <label for="modo-sala">Modo (MOD):</label>
+            <select id="modo-sala">
+                <option value="MOD1">Modo 1 (Frio)</option>
+                <option value="MOD2">Modo 2 (Seco)</option>
+                <option value="MOD3">Modo 3 (Ventilar)</option>
+                <option value="MOD4">Modo 4 (Quente)</option>
+                <option value="MOD5">Modo 5 (Auto)</option>
+            </select>
+            
+            <button class="btn btn-apply" onclick="sendCommandFromSelectors('sala')">APLICAR AJUSTES</button>
+            <hr>
+            <label>Controle da Oscilação:</label>
+            <div class="button-group">
+                <button class="btn btn-swon" onclick="sendIrCommand('sala', 'SWON')">LIGAR</button>
+                <button class="btn btn-swoff" onclick="sendIrCommand('sala', 'SWOFF')">DESLIGAR</button>
+            </div>
+
+            <div class="status" id="status-sala">Aguardando comandos...</div>
+        </div> 
+    </div>
+
+    <div id="view-training" class="view-section" style="display: none;">
+        <div class="ac-unit training-box">
+            <h2>Modo de Aprendizagem</h2>
+            
+            <p class="instruct-text">
+                1. Clique no botão abaixo.<br>
+                2. Aponte o controle para o ESP32.<br>
+                3. Aperte o botão no controle remoto.
+            </p>
+            
+            <label>IP do ESP32:</label>
+            <input type="text" class="ip-input" id="ip-treino" value="192.168.1.101">
+
+            <h3>Comandos Básicos</h3>
+            <button class="btn btn-grey" onclick="capturar('L')">Gravar LIGAR</button>
+            <button class="btn btn-grey" onclick="capturar('D')">Gravar DESLIGAR</button>
+            
+            <div class="swing-record-group">
+                <button class="btn btn-sw-on" onclick="capturar('SW_ON')">Gravar SWING ON (Oscilar)</button>
+                <button class="btn btn-sw-off" onclick="capturar('SW_OFF')">Gravar SWING OFF (Parar)</button>
+            </div>
+            
+            <hr>
+            
+            <h3>Temperaturas</h3>
+            <select id="temp-treino">
+                </select>
+            <button class="btn btn-apply" onclick="capturarTemp()">Gravar Temperatura Selecionada</button>
+            
+            <hr>
+            
+            <h3>Modos de Operação</h3>
+            <select id="modo-treino">
+                <option value="MOD1">Modo 1 (Frio)</option>
+                <option value="MOD2">Modo 2 (Seco)</option>
+                <option value="MOD3">Modo 3 (Ventilar)</option>
+                <option value="MOD4">Modo 4 (Quente)</option>
+                <option value="MOD5">Modo 5 (Auto)</option>
+            </select>
+            <button class="btn btn-apply btn-orange" onclick="capturarModo()">Gravar Modo Selecionado</button>
+            
+            <hr>
+            
+            <button class="btn btn-purple" onclick="salvarNaMemoria()">💾 SALVAR DEFINITIVO (Flash)</button>
+
+            <div class="status" id="status-treino" style="font-weight:bold; margin-top:15px;">Aguardando...</div>
+        </div> 
+    </div>
+    <div id="view-about" class="view-section" style="display: none;">
+        <p>Ainda n tem nada, mas foi eu(Bruno Lucio) que faz tudo isso aqui kk</p>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
